@@ -102,8 +102,19 @@ func (ws *WebhookServer) webhookHandler(c *gin.Context) {
 		return
 	}
 
+	evtData ,err := json.Marshal(body["blockEventData"])
+	if err != nil {
+		log.Warn().Msg(err.Error())
+		c.Status(http.StatusUnauthorized)
+		return
+	}
+
 	ws.pubsubClient.Publish(c.Request.Context(), &pubsub.Message{
-		Data: rawBody,
+		Data: evtData,
+		Attributes: map[string]string{
+			"eventType": body["flowEventId"].(string),
+		},
+
 	})
 
 	c.Status(http.StatusOK)

@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	viper.SetDefault("PUBSUB_PROJECT", "battleblocks-test")
+	viper.SetDefault("GOOGLE_PROJECT_ID", "battleblocks-test")
 	viper.SetDefault("PUBSUB_TOPIC", "blockchain.flow.events")
 
 	project := viper.GetString("PUBSUB_PROJECT")
