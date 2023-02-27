@@ -172,6 +172,7 @@ func (ws WebhookServer) ensureAuth(authHeader string, rawBody []byte, requestMet
 
 	log.Info().Interface("graffleAuth", graffleAuthorization).
 		Interface("expectedSignature", graffleAuthorization.Base64RequestSignature).
+		Interface("graffleConfig", ws.graffleConfig).
 		Interface("presentSignature", b64).Msg("Signature mismatch?")
 
 	if graffleAuthorization.Base64RequestSignature != b64 {
