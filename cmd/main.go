@@ -14,7 +14,7 @@ func main() {
 	viper.SetDefault("GRAFFLE_COMPANY_ID", "ead2dbd7-47e5-458a-bb65-f2fe4f0dfee2")
 	viper.SetDefault("GRAFFLE_SECRET", "3ASDchangemeASD33333")
 
-	project := viper.GetString("PUBSUB_PROJECT")
+	project := viper.GetString("GOOGLE_PROJECT_ID")
 	topic := viper.GetString("PUBSUB_TOPIC")
 	secret := viper.GetString("GRAFFLE_SECRET")
 
