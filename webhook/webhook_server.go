@@ -44,11 +44,9 @@ var (
 	nonces  = make(map[string]time.Time)
 )
 
-func NewWebhookServer(pubsubClient *ps.PubsubClient) *WebhookServer {
-	viper.SetDefault("GRAFFLE_COMPANY_ID", "ead2dbd7-47e5-458a-bb65-f2fe4f0dfee2")
-	viper.SetDefault("GRAFFLE_SECRET", "3ASDchangemeASD33333")
-
-	secret, err := base64.StdEncoding.DecodeString(viper.GetString("GRAFFLE_SECRET"))
+func NewWebhookServer(pubsubClient *ps.PubsubClient, scr string) *WebhookServer {
+	secret, err := base64.StdEncoding.DecodeString(scr)
+	log.Info().Interface("scr", scr).Msg("Scr")
 
 	if err != nil {
 		log.Fatal().Msg("Can't decode Graffle secret, is it encoded in Base64?")
