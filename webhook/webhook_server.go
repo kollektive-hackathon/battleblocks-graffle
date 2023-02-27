@@ -46,7 +46,6 @@ var (
 
 func NewWebhookServer(pubsubClient *ps.PubsubClient, scr string) *WebhookServer {
 	secret, err := base64.StdEncoding.DecodeString(scr)
-	log.Info().Interface("scr", scr).Msg("Scr")
 
 	if err != nil {
 		log.Fatal().Msg("Can't decode Graffle secret, is it encoded in Base64?")
