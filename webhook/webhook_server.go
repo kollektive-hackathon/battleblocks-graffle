@@ -1,6 +1,7 @@
 package webhook
 
 import (
+	"context"
 	"crypto/hmac"
 	"crypto/md5"
 	"crypto/sha256"
@@ -16,6 +17,7 @@ import (
 	"time"
 
 	ps "battleblocks-graffle/pubsub"
+
 	"cloud.google.com/go/pubsub"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
@@ -106,7 +108,7 @@ func (ws *WebhookServer) webhookHandler(c *gin.Context) {
 		return
 	}
 
-	ws.pubsubClient.Publish(c.Request.Context(), &pubsub.Message{
+	ws.pubsubClient.Publish(context.Background(), &pubsub.Message{
 		Data: evtData,
 		Attributes: map[string]string{
 			"eventType": body["flowEventId"].(string),
