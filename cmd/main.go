@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	viper.AutomaticEnv()
 	viper.SetDefault("GOOGLE_PROJECT_ID", "flow-battleblocks")
 	viper.SetDefault("PUBSUB_TOPIC", "blockchain.flow.events")
 

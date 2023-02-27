@@ -127,7 +127,6 @@ func (ws WebhookServer) ensureAuth(authHeader string, rawBody []byte, requestMet
 		return errors.New("authorization header missing or in the wrong format")
 	}
 
-	log.Info().Interface("authheader", authHeader).Msg("Authheader!")
 	raw := authHeader[9:]
 	parts := strings.Split(raw, ":")
 
@@ -169,11 +168,6 @@ func (ws WebhookServer) ensureAuth(authHeader string, rawBody []byte, requestMet
 	hash = hmac.New(sha256.New, ws.graffleConfig.Secret)
 	hash.Write([]byte(signatureData))
 	b64 = base64.StdEncoding.EncodeToString(hash.Sum(nil))
-
-	log.Info().Interface("graffleAuth", graffleAuthorization).
-		Interface("expectedSignature", graffleAuthorization.Base64RequestSignature).
-		Interface("graffleConfig", ws.graffleConfig).
-		Interface("presentSignature", b64).Msg("Signature mismatch?")
 
 	if graffleAuthorization.Base64RequestSignature != b64 {
 		return errors.New("signature from Authorization header does not match generated signature")
