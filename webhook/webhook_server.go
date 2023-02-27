@@ -112,6 +112,7 @@ func (ws *WebhookServer) webhookHandler(c *gin.Context) {
 		Data: evtData,
 		Attributes: map[string]string{
 			"eventType": body["flowEventId"].(string),
+			"transactionId": body["flowTransactionId"].(string),
 		},
 	})
 
