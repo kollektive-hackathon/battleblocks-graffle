@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"cloud.google.com/go/pubsub"
+	"github.com/rs/zerolog/log"
 )
 
 type PubsubClient struct {
@@ -22,5 +23,6 @@ func NewPubsubClient(topic, project string) *PubsubClient {
 }
 
 func (pc *PubsubClient) Publish(ctx context.Context, message *pubsub.Message) {
+	log.Info().Interface("message", message.Data).Msg("Sending graffle event message to topic")
 	pc.topic.Publish(ctx, message)
 }
