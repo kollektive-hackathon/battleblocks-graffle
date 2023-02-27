@@ -170,6 +170,9 @@ func (ws WebhookServer) ensureAuth(authHeader string, rawBody []byte, requestMet
 	hash.Write([]byte(signatureData))
 	b64 = base64.StdEncoding.EncodeToString(hash.Sum(nil))
 
+	log.Info().Interface("expectedSignature", graffleAuthorization.Base64RequestSignature).
+		Interface("presentSignature", signatureData).Msg("Signature mismatch?")
+
 	if graffleAuthorization.Base64RequestSignature != b64 {
 		return errors.New("signature from Authorization header does not match generated signature")
 	}
