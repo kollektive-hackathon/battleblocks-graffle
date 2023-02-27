@@ -102,7 +102,7 @@ func (ws *WebhookServer) webhookHandler(c *gin.Context) {
 		return
 	}
 
-	evtData ,err := json.Marshal(body["blockEventData"])
+	evtData, err := json.Marshal(body["blockEventData"])
 	if err != nil {
 		log.Warn().Msg(err.Error())
 		c.Status(http.StatusUnauthorized)
@@ -114,7 +114,6 @@ func (ws *WebhookServer) webhookHandler(c *gin.Context) {
 		Attributes: map[string]string{
 			"eventType": body["flowEventId"].(string),
 		},
-
 	})
 
 	c.Status(http.StatusOK)
@@ -128,6 +127,7 @@ func (ws WebhookServer) ensureAuth(authHeader string, rawBody []byte, requestMet
 		return errors.New("authorization header missing or in the wrong format")
 	}
 
+	log.Info().Interface("authheader", authHeader).Msg("Authheader!")
 	raw := authHeader[9:]
 	parts := strings.Split(raw, ":")
 
